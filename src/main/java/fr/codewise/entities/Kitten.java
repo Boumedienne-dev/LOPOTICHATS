@@ -1,4 +1,4 @@
-package fr.codewise.lopotichat.entities;
+package fr.codewise.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +20,9 @@ public class Kitten {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String name;
+    private Integer age;
+    private String color;
+    private String race;
+    private Boolean isAdopted;
 }

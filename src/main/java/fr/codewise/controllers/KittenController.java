@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.codewise.lopotichat.entities.Kitten;
-import fr.codewise.lopotichat.repositories.KittenRepository;
+import fr.codewise.entities.Kitten;
+import fr.codewise.repositories.KittenRepository;
+
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -30,22 +31,21 @@ public class KittenController {
     }
 
     @DeleteMapping("kittens/{id}")
-    public boolean delete(@PathVariable int id){
-        KittenRepository.deleteById(id);
-        return true;
+    public void deleteKittenById(@PathVariable int id){
+        this.kittenRepository.deleteById(id);
     }
 
     @PostMapping("/kittens")
     public Kitten create(@RequestBody Kitten kitten){
-        return kittenRepository.save(kitten);
+        return this.kittenRepository.save(kitten);
     }
 
-    @PutMapping("/kittens/{id}")
-    public Kitten update(@PathVariable int id, @RequestBody Kitten kitten){
-        // getting kitten
-        Kitten blogToUpdate = KittenRepository.findById(id).get();
-        kittenToUpdate.setTitle(kitten.getName());
-        kittenToUpdate.setContent(kitten.getContent());
-        return kittenRepository.save(kittenToUpdate);
-    }
+    // @PutMapping("/kittens/{id}")
+    // public Kitten update(@PathVariable int id, @RequestBody Kitten kitten){
+    //     // getting kitten
+    //     Kitten kittenToUpdate = this.kittenRepository.findById(id).get();
+    //     kittenToUpdate.setTitle(kitten.getName());
+    //     kittenToUpdate.setContent(kitten.getContent());
+    //     return this.kittenRepository.save(kittenToUpdate);
+    // }
 }
