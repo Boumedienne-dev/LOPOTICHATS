@@ -40,12 +40,22 @@ public class KittenController {
         return this.kittenRepository.save(kitten);
     }
 
-    // @PutMapping("/kittens/{id}")
-    // public Kitten update(@PathVariable int id, @RequestBody Kitten kitten){
-    //     // getting kitten
-    //     Kitten kittenToUpdate = this.kittenRepository.findById(id).get();
-    //     kittenToUpdate.setTitle(kitten.getName());
-    //     kittenToUpdate.setContent(kitten.getContent());
-    //     return this.kittenRepository.save(kittenToUpdate);
-    // }
+    @PutMapping("/kittens/{id}") 
+    public Kitten update(@PathVariable int id, @RequestBody Kitten kitten){
+        // getting kitten
+        Kitten kittenToUpdate = this.kittenRepository.findById(id).get();
+        kittenToUpdate.setName(kitten.getName());
+        kittenToUpdate.setAge(kitten.getAge());
+        kittenToUpdate.setColor(kitten.getColor());
+        kittenToUpdate.setRace(kitten.getRace());
+        kittenToUpdate.setIsAdopted(kitten.getIsAdopted());
+        return this.kittenRepository.save(kittenToUpdate);
+    }
+
+    @PostMapping("/kitten/adopt?catId={id}")
+    public void adoptKittenById(int catId) {
+    Kitten kitten = this.kittenRepository.findById(catId).get();
+    kitten.setIsAdopted(true);
+    this.kittenRepository.save(kitten);
+    }
 }
