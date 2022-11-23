@@ -52,7 +52,7 @@ public class KittenController {
         return this.kittenRepository.save(kittenToUpdate);
     }
 
-    @PostMapping("/kitten/adopt?catId={id}")
+    @PostMapping("/kittens/adopt?catId={id}")
     public void adoptKittenById(int catId) {
     Kitten kitten = this.kittenRepository.findById(catId).get();
     kitten.setIsAdopted(true);
