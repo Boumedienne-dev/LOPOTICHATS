@@ -24,5 +24,7 @@ public class Kitten {
     private Integer age;
     private String color;
     private String race;
+    private String sex;
+    private String urlImage;
     private Boolean isAdopted;
 }

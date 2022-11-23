@@ -30,22 +30,37 @@ public class KittenController {
         return this.kittenRepository.findAllKittensByIsAdopted(isAdopted);
     }
 
-    @DeleteMapping("kittens/{id}")
-    public void deleteKittenById(@PathVariable int id){
+    @GetMapping("/{id}")
+    public Kitten findById(@PathVariable int id) {
+        return this.kittenRepository.findById(id).get();
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteKittenById(@PathVariable Integer id){
         this.kittenRepository.deleteById(id);
     }
 
-    @PostMapping("/kittens")
+    @PostMapping
     public Kitten create(@RequestBody Kitten kitten){
         return this.kittenRepository.save(kitten);
     }
 
-    // @PutMapping("/kittens/{id}")
-    // public Kitten update(@PathVariable int id, @RequestBody Kitten kitten){
-    //     // getting kitten
-    //     Kitten kittenToUpdate = this.kittenRepository.findById(id).get();
-    //     kittenToUpdate.setTitle(kitten.getName());
-    //     kittenToUpdate.setContent(kitten.getContent());
-    //     return this.kittenRepository.save(kittenToUpdate);
-    // }
+    @PutMapping("/{id}") 
+    public Kitten update(@PathVariable int id, @RequestBody Kitten kitten){
+        // getting kitten
+        Kitten kittenToUpdate = this.kittenRepository.findById(id).get();
+        kittenToUpdate.setName(kitten.getName());
+        kittenToUpdate.setAge(kitten.getAge());
+        kittenToUpdate.setColor(kitten.getColor());
+        kittenToUpdate.setRace(kitten.getRace());
+        kittenToUpdate.setIsAdopted(kitten.getIsAdopted());
+        return this.kittenRepository.save(kittenToUpdate);
+    }
+
+    @PostMapping("/{id}/adopt")
+    public void adoptKittenById(@PathVariable int id) {
+    Kitten kitten = this.kittenRepository.findById(id).get();
+    kitten.setIsAdopted(true);
+    this.kittenRepository.save(kitten);
+    }
 }
